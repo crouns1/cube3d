@@ -10,8 +10,9 @@ UTILS = $(addprefix src/utils/, ft_malloc.c ft_strcmp.c ft_strjoin.c ft_strdup.c
 PARSE = $(addprefix src/parse/, check_element.c map_check.c parse_file.c \
 		validate_map.c)
 
+RAY_CAST_STUFF = $(addprefix ray_casting/ , initialition.c establish_mlx_connection.c)
 
-SRC = src/main.c $(UTILS) $(PARSE) 
+SRC = src/main.c $(UTILS) $(PARSE) $(RAY_CAST_STUFF)
 
 OBJ = $(SRC:%.c=%.o)
 
