@@ -6,7 +6,7 @@
 /*   By: yabarhda <yabarhda@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 14:59:43 by yabarhda          #+#    #+#             */
-/*   Updated: 2025/08/31 19:00:21 by yabarhda         ###   ########.fr       */
+/*   Updated: 2025/12/13 13:53:12 by yabarhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,10 @@ int	error_check(int ac, char **av)
 	fd = open(av[1], O_RDONLY);
 	if (fd == -1)
 		return (printf("Error\nNo such file or directory\n"), 0);
+	close(fd);
 	len = ft_strlen(av[1]);
 	if (ft_strcmp(".cub", &av[1][len - 4]))
-		return (printf("Error\nInvalid file format\n"), close(fd), 0);
+		return (printf("Error\nInvalid file format\n"), 0);
 	return (1);
 }
 
@@ -43,6 +44,12 @@ static void	init_data(t_data *data)
 	data->player.y = 0;
 	data->player.angle = 0;
 	data->player.direction = 0;
+	data->player.key_w = false;
+	data->player.key_a = false;
+	data->player.key_s = false;
+	data->player.key_d = false;
+	data->player.key_right = false;
+	data->player.key_left = false;
 }
 
 int	clean_exit(t_data *data)
@@ -54,23 +61,21 @@ int	clean_exit(t_data *data)
 	exit(0);
 }
 
-int	key_hooks(int key, t_data *data)
+int	on_gameupdate(t_data *data)
 {
-	if (key == KEY_ESC)
-		clean_exit(data);
-	if (key == KEY_RIGHT)
-		printf("right arrow\n");
-	if (key == KEY_LEFT)
-		printf("left arrow\n");
-	if (key == KEY_W)
-		printf("w key\n");
-	if (key == KEY_A)
-		printf("a key\n");
-	if (key == KEY_S)
-		printf("s key\n");
-	if (key == KEY_D)
-		printf("d key\n");
+	move_player(data);
 	return (0);
+}
+
+void	init_cub(t_data *data)
+{
+	data->mlx = mlx_init();
+	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "cub3D");
+	mlx_hook(data->win, 17, 1L << 0, clean_exit, data);
+	mlx_hook(data->win, 2, 1L << 0, on_keypress, data);
+	mlx_hook(data->win, 3, 1L << 1, on_keyrelease, data);
+	mlx_loop_hook(data->mlx, on_gameupdate, data);
+	mlx_loop(data->mlx);
 }
 
 int	main(int ac, char **av)
@@ -83,10 +88,6 @@ int	main(int ac, char **av)
 	init_data(data);
 	if (!parse_file(data, av[1]))
 		return (ft_malloc(-42), 1);
-	data->mlx = mlx_init();
-	data->win = mlx_new_window(data->mlx, 1280, 720, "cub3D");
-	mlx_hook(data->win, 17, 1L << 0, clean_exit, data);
-	mlx_hook(data->win, 2, 1L << 0, key_hooks, data);
-	mlx_loop(data->mlx);
+	init_cub(data);
 	return (0);
 }

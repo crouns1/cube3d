@@ -1,9 +1,9 @@
 NO ./Makefile
 SO ./Makefile
+F 220,100,255
 WE ./Makefile
 EA ./Makefile
 
-F 220,100,255
 C 225,30,0
 
 0111111

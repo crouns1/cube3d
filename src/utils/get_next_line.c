@@ -6,7 +6,7 @@
 /*   By: yabarhda <yabarhda@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/07 22:14:20 by yabarhda          #+#    #+#             */
-/*   Updated: 2025/08/28 18:33:28 by yabarhda         ###   ########.fr       */
+/*   Updated: 2025/12/13 13:52:23 by yabarhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char	*get_next_line(int fd)
 		{
 			stash = NULL;
 			return (NULL);
-		}			
+		}
 	}
 	return (extract_line(&stash));
 }

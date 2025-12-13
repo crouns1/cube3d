@@ -6,7 +6,7 @@
 /*   By: yabarhda <yabarhda@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 10:14:06 by yabarhda          #+#    #+#             */
-/*   Updated: 2025/08/31 19:00:21 by yabarhda         ###   ########.fr       */
+/*   Updated: 2025/12/12 18:40:49 by yabarhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	free_all(t_mem *mem)
 static void	ft_malloc_failsafe(t_mem *mem)
 {
 	free_all(mem);
-	write(2, "minishell: malloc somehow failed\n", 33);
+	write(2, "malloc somehow failed\n", 33);
 	exit(1);
 }
 
