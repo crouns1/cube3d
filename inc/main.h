@@ -6,7 +6,7 @@
 /*   By: yabarhda <yabarhda@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 15:00:04 by yabarhda          #+#    #+#             */
-/*   Updated: 2025/12/13 13:52:58 by yabarhda         ###   ########.fr       */
+/*   Updated: 2025/12/14 15:07:05 by yabarhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ int		ft_isdigit(int c);
 int		ft_isplayer(char c);
 int		on_keyrelease(int key, t_data *data);
 int		on_keypress(int key, t_data *data);
+int		clean_exit(t_data *data);
 
 long	ft_atoi(const char *str);
 
