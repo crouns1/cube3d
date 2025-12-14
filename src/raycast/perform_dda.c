@@ -5,12 +5,13 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jait-chd <jait-chd@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/08 16:26:16 by jait-chd          #+#    #+#             */
-/*   Updated: 2025/12/14 09:44:56 by jait-chd         ###   ########.fr       */
+/*   Created: 2025/09/08 20:02:01 by jait-chd          #+#    #+#             */
+/*   Updated: 2025/09/08 20:07:00 by jait-chd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/main.h"
+
 
 void	perform_dda(t_data *data, t_ray *ray)
 {

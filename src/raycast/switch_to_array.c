@@ -1,39 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   draw_vertical_line.c                               :+:      :+:    :+:   */
+/*   switch_to_array.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jait-chd <jait-chd@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/09/08 16:26:16 by jait-chd          #+#    #+#             */
-/*   Updated: 2025/12/14 09:54:50 by jait-chd         ###   ########.fr       */
+/*   Created: 2025/09/08 20:00:11 by jait-chd          #+#    #+#             */
+/*   Updated: 2025/09/08 20:00:38 by jait-chd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/main.h"
 
-void check_x_y(int x, int y) {
-	if(x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
-		return;
-}
 
-void	put_pixel(t_data *data, int x, int y, int color)
+void	convert_map_to_array(t_data *data)
 {
-	char	*dst;
+	t_map	*tmp;
+	int		i;
 
-	check_x_y(x , y);
-	dst = data->img_addr + (y * data->size_line + x * (data->bpp / 8));
-	*(unsigned int*)dst = color;
-}
-
-void	draw_vertical_line(t_data *data, int x, int start, int end, int color)
-{
-	int	y;
-
-	y = start;
-	while (y < end)
+	data->map_height = 0;
+	tmp = data->map;
+	while (tmp)
 	{
-		put_pixel(data, x, y, color);
-		y++;
+		data->map_height++;
+		tmp = tmp->next;
+	}
+	data->map_width = ft_strlen(data->map->row);
+	data->map_array = ft_malloc(sizeof(char *) * (data->map_height + 1));
+	data->map_array[data->map_height] = NULL;
+	tmp = data->map;
+	i = 0;
+	while (tmp)
+	{
+		data->map_array[i] = ft_strdup(tmp->row);
+		tmp = tmp->next;
+		i++;
 	}
 }

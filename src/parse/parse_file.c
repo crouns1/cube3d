@@ -6,7 +6,7 @@
 /*   By: yabarhda <yabarhda@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 15:17:00 by yabarhda          #+#    #+#             */
-/*   Updated: 2025/08/31 19:13:08 by yabarhda         ###   ########.fr       */
+/*   Updated: 2025/09/11 16:59:58 by yabarhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	validate_elements(t_data *data)
 	return (1);
 }
 
-int	parse_file(t_data *data, char *file)
+void	parse_file(t_data *data, char *file)
 {
 	int		fd;
 	char	*line;
@@ -84,5 +84,4 @@ int	parse_file(t_data *data, char *file)
 	final_check(data, fd);
 	check_texture_file(data, fd);
 	map_check(data, fd);
-	return (1);
 }

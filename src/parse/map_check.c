@@ -6,7 +6,7 @@
 /*   By: yabarhda <yabarhda@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/30 15:21:32 by yabarhda          #+#    #+#             */
-/*   Updated: 2025/12/13 13:52:32 by yabarhda         ###   ########.fr       */
+/*   Updated: 2025/09/11 16:59:51 by yabarhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,8 @@ void	map_check(t_data *data, int fd)
 	char	*line;
 
 	line = get_next_line(fd);
-	while (line)
-	{
-		if (line[0] != '\n')
-			break ;
+	while (line && line[0] == '\n')
 		line = get_next_line(fd);
-	}
 	while (line)
 	{
 		i = 0;

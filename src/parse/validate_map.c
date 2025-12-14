@@ -6,7 +6,7 @@
 /*   By: yabarhda <yabarhda@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/31 16:50:38 by yabarhda          #+#    #+#             */
-/*   Updated: 2025/09/01 10:46:43 by yabarhda         ###   ########.fr       */
+/*   Updated: 2025/09/11 17:00:04 by yabarhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	standard_check(t_data *data)
 			if (ft_isplayer(tmp->row[x]))
 			{
 				if (data->player.x)
-					(ft_malloc(-42), ft_perror("Invalid map"), exit(1));
+					(ft_malloc(-42), ft_perror("Multiple players present in map"), exit(1));
 				data->player.x = x;
 				data->player.y = y;
 				data->player.direction = tmp->row[x];
@@ -38,7 +38,7 @@ static void	standard_check(t_data *data)
 		tmp = tmp->next;
 	}
 	if (!data->player.x)
-		(ft_malloc(-42), ft_perror("Invalid map"), exit(1));
+		(ft_malloc(-42), ft_perror("Player not found"), exit(1));
 }
 
 static void	dfs(t_data *data, char **map, int x, int y)
@@ -51,7 +51,7 @@ static void	dfs(t_data *data, char **map, int x, int y)
 	}
 	if (map[y][x] == '1' || map[y][x] == 'F')
 		return ;
-	if (map[y][x] == ' ' || !map[y][x])
+	if (!map[y][x])
 		(ft_malloc(-42), ft_perror("Invalid map"), exit(1));
 	map[y][x] = 'F';
 	dfs(data, map, x + 1, y);
