@@ -1,7 +1,7 @@
 NAME = cub3D
 CC = clang #cc
 CFLAGS = -Wall -Wextra -Werror -g
-MLX = -lmlx -lXext -lX11
+MLX = -lmlx -lXext -lX11 -lm
 
 UTILS = $(addprefix src/utils/, ft_malloc.c ft_strcmp.c ft_strjoin.c ft_strdup.c \
 		get_next_line.c ft_strlen.c ft_strlcat.c ft_strlcpy.c ft_split.c ft_isspace.c \

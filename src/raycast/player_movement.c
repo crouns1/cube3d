@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   player_movement.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabarhda <yabarhda@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: jait-chd <jait-chd@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/12 18:43:46 by yabarhda          #+#    #+#             */
-/*   Updated: 2025/12/13 13:55:05 by yabarhda         ###   ########.fr       */
+/*   Updated: 2025/12/14 10:21:41 by jait-chd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,78 @@ int	on_keyrelease(int key, t_data *data)
 	return (0);
 }
 
+// void	move_player(t_data *data)
+// {
+// 	if (data->player.key_right)
+// 		printf("right arrow\n");
+// 	if (data->player.key_left)
+// 		printf("left arrow\n");
+// 	if (data->player.key_w)
+// 		printf("w key\n");
+// 	if (data->player.key_a)
+// 		printf("a key\n");
+// 	if (data->player.key_s)
+// 		printf("s key\n");
+// 	if (data->player.key_d)
+// 		printf("d key\n");
+// }
+
 void	move_player(t_data *data)
 {
-	if (data->player.key_right)
-		printf("right arrow\n");
-	if (data->player.key_left)
-		printf("left arrow\n");
-	if (data->player.key_w)
-		printf("w key\n");
-	if (data->player.key_a)
-		printf("a key\n");
-	if (data->player.key_s)
-		printf("s key\n");
-	if (data->player.key_d)
-		printf("d key\n");
+    double move_speed = 0.1;
+    double rot_speed = 0.05;
+    double old_dir_x, old_plane_x;
+
+    // Forward
+    if (data->player.key_w)
+    {
+        if (data->map_array[(int)(data->player.y)][(int)(data->player.x + data->player.dir_x * move_speed)] == '0')
+            data->player.x += data->player.dir_x * move_speed;
+        if (data->map_array[(int)(data->player.y + data->player.dir_y * move_speed)][(int)(data->player.x)] == '0')
+            data->player.y += data->player.dir_y * move_speed;
+    }
+    // Backward
+    if (data->player.key_s)
+    {
+        if (data->map_array[(int)(data->player.y)][(int)(data->player.x - data->player.dir_x * move_speed)] == '0')
+            data->player.x -= data->player.dir_x * move_speed;
+        if (data->map_array[(int)(data->player.y - data->player.dir_y * move_speed)][(int)(data->player.x)] == '0')
+            data->player.y -= data->player.dir_y * move_speed;
+    }
+    // Left
+    if (data->player.key_a)
+    {
+        if (data->map_array[(int)(data->player.y)][(int)(data->player.x - data->player.plane_x * move_speed)] == '0')
+            data->player.x -= data->player.plane_x * move_speed;
+        if (data->map_array[(int)(data->player.y - data->player.plane_y * move_speed)][(int)(data->player.x)] == '0')
+            data->player.y -= data->player.plane_y * move_speed;
+    }
+    // Right
+    if (data->player.key_d)
+    {
+        if (data->map_array[(int)(data->player.y)][(int)(data->player.x + data->player.plane_x * move_speed)] == '0')
+            data->player.x += data->player.plane_x * move_speed;
+        if (data->map_array[(int)(data->player.y + data->player.plane_y * move_speed)][(int)(data->player.x)] == '0')
+            data->player.y += data->player.plane_y * move_speed;
+    }
+    // Rotate right
+    if (data->player.key_right)
+    {
+        old_dir_x = data->player.dir_x;
+        data->player.dir_x = data->player.dir_x * cos(-rot_speed) - data->player.dir_y * sin(-rot_speed);
+        data->player.dir_y = old_dir_x * sin(-rot_speed) + data->player.dir_y * cos(-rot_speed);
+        old_plane_x = data->player.plane_x;
+        data->player.plane_x = data->player.plane_x * cos(-rot_speed) - data->player.plane_y * sin(-rot_speed);
+        data->player.plane_y = old_plane_x * sin(-rot_speed) + data->player.plane_y * cos(-rot_speed);
+    }
+    // Rotate left
+    if (data->player.key_left)
+    {
+        old_dir_x = data->player.dir_x;
+        data->player.dir_x = data->player.dir_x * cos(rot_speed) - data->player.dir_y * sin(rot_speed);
+        data->player.dir_y = old_dir_x * sin(rot_speed) + data->player.dir_y * cos(rot_speed);
+        old_plane_x = data->player.plane_x;
+        data->player.plane_x = data->player.plane_x * cos(rot_speed) - data->player.plane_y * sin(rot_speed);
+        data->player.plane_y = old_plane_x * sin(rot_speed) + data->player.plane_y * cos(rot_speed);
+    }
 }

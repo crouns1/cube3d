@@ -6,7 +6,7 @@
 /*   By: jait-chd <jait-chd@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 14:59:43 by yabarhda          #+#    #+#             */
-/*   Updated: 2025/12/14 09:40:02 by jait-chd         ###   ########.fr       */
+/*   Updated: 2025/12/14 10:15:24 by jait-chd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	clean_exit(t_data *data)
 
 int	on_gameupdate(t_data *data)
 {
-	// move_player(data);
+	 move_player(data);
 	raycast(data);
 	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 	return (0);
@@ -71,8 +71,7 @@ int	on_gameupdate(t_data *data)
 
 void	init_cub(t_data *data)
 {
-	// 1st step i did is to convert the full map into array so i can easily access it
-	convert_map_to_array(data);
+	
 	// then establish mlx and window
 	data->mlx = mlx_init();
 	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "cub3D");
@@ -82,6 +81,8 @@ void	init_cub(t_data *data)
 	// get the address of the image data to manipulate pixels directly
 	// set pixels colors directly in memory
 	data->img_addr = mlx_get_data_addr(data->img, &data->bpp, &data->size_line, &data->endien);
+	// convert the full map into array so i can easily access it
+	convert_map_to_array(data);
 	mlx_hook(data->win, 17, 1L << 0, clean_exit, data);
 	mlx_hook(data->win, 2, 1L << 0, on_keypress, data);
 	mlx_hook(data->win, 3, 1L << 1, on_keyrelease, data);
