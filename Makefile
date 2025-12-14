@@ -1,5 +1,5 @@
 NAME = cub3D
-CC = cc
+CC = clang #cc
 CFLAGS = -Wall -Wextra -Werror -g
 MLX = -lmlx -lXext -lX11
 
@@ -10,7 +10,7 @@ UTILS = $(addprefix src/utils/, ft_malloc.c ft_strcmp.c ft_strjoin.c ft_strdup.c
 PARSE = $(addprefix src/parse/, check_element.c map_check.c parse_file.c \
 		validate_map.c)
 
-RAYCAST = $(addprefix src/raycast/, player_movement.c)
+RAYCAST = $(addprefix src/raycast/, player_movement.c convert_map_to_array.c)
 
 SRC = src/main.c $(UTILS) $(PARSE) $(RAYCAST)
 

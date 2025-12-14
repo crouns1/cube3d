@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabarhda <yabarhda@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: jait-chd <jait-chd@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 14:59:43 by yabarhda          #+#    #+#             */
-/*   Updated: 2025/12/13 13:53:12 by yabarhda         ###   ########.fr       */
+/*   Updated: 2025/12/14 08:38:14 by jait-chd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,9 @@ int	on_gameupdate(t_data *data)
 
 void	init_cub(t_data *data)
 {
+	// 1st step i did is to convert the full map into array so i can easily access it
+	convert_map_to_array(data);
+	// then establish mlx and window
 	data->mlx = mlx_init();
 	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "cub3D");
 	mlx_hook(data->win, 17, 1L << 0, clean_exit, data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabarhda <yabarhda@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: jait-chd <jait-chd@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 15:00:04 by yabarhda          #+#    #+#             */
-/*   Updated: 2025/12/14 15:07:05 by yabarhda         ###   ########.fr       */
+/*   Updated: 2025/12/14 08:35:34 by jait-chd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,10 @@ typedef struct s_data
 	t_map			*map;
 	t_texture		*texture;
 	t_player		player;
+	// add filds for switching map to array
+	int				map_width;
+	int				map_height;
+	char			**map_array;
 }					t_data;
 
 int		ft_strcmp(const char *s1, const char *s2);
@@ -108,5 +112,8 @@ void	move_player(t_data *data);
 size_t	ft_strlen(const char *s);
 size_t	ft_strlcat(char *dest, const char *src, size_t size);
 size_t	ft_strlcpy(char *dest, const char *src, size_t size);
+// raycasting funcs
+void	convert_map_to_array(t_data *data);
+
 
 #endif
