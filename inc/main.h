@@ -6,7 +6,7 @@
 /*   By: jait-chd <jait-chd@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 15:00:04 by yabarhda          #+#    #+#             */
-/*   Updated: 2025/12/14 08:49:38 by jait-chd         ###   ########.fr       */
+/*   Updated: 2025/12/14 09:07:44 by jait-chd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,11 @@ typedef struct s_player
 	bool			key_d;
 	bool			key_right;
 	bool			key_left;
+	// add fields for raycasting
+	double			dir_x;
+	double			dir_y;
+	double			plane_x;
+	double			plane_y;
 }					t_player;
 
 typedef struct s_data
@@ -118,8 +123,9 @@ void	move_player(t_data *data);
 size_t	ft_strlen(const char *s);
 size_t	ft_strlcat(char *dest, const char *src, size_t size);
 size_t	ft_strlcpy(char *dest, const char *src, size_t size);
-// raycasting funcs
+// raycasting prototypes
 void	convert_map_to_array(t_data *data);
-
+void	init_player(t_data *data);
+void	init_player_direction(t_data *data);
 
 #endif

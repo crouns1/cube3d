@@ -6,7 +6,7 @@
 /*   By: jait-chd <jait-chd@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 14:59:43 by yabarhda          #+#    #+#             */
-/*   Updated: 2025/12/14 08:51:36 by jait-chd         ###   ########.fr       */
+/*   Updated: 2025/12/14 09:03:54 by jait-chd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,8 @@ int	main(int ac, char **av)
 	init_data(data);
 	if (!parse_file(data, av[1]))
 		return (ft_malloc(-42), 1);
+		// this func is for init player pos and direction
+	init_player(data);	
 	init_cub(data);
 	return (0);
 }
