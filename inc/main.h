@@ -6,7 +6,7 @@
 /*   By: jait-chd <jait-chd@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 15:00:04 by yabarhda          #+#    #+#             */
-/*   Updated: 2025/12/14 09:07:44 by jait-chd         ###   ########.fr       */
+/*   Updated: 2025/12/14 09:55:23 by jait-chd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <fcntl.h>
 # include <stdbool.h>
 # include <mlx.h>
-
+#include <math.h>
 # define KEY_W 119
 # define KEY_A 97
 # define KEY_S 115
@@ -93,6 +93,23 @@ typedef struct s_data
 	int				size_line;
 	int				endien;
 }					t_data;
+// add ray struct
+typedef struct s_ray
+{
+	float			dir_x;
+	float			dir_y;
+	float			side_dist_x;
+	float			side_dist_y;
+	float			delta_dist_x;
+	float			delta_dist_y;
+	float			perp_wall_dist;
+	int				step_x;
+	int				step_y;
+	int				hit;
+	int				side;
+	int				map_x;
+	int				map_y;
+}					t_ray;
 
 int		ft_strcmp(const char *s1, const char *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
@@ -127,5 +144,14 @@ size_t	ft_strlcpy(char *dest, const char *src, size_t size);
 void	convert_map_to_array(t_data *data);
 void	init_player(t_data *data);
 void	init_player_direction(t_data *data);
-
+void	raycast(t_data *data);
+void	cast_ray(t_data *data, t_ray *ray, int x);
+void	draw_wall_slice(t_data *data, t_ray *ray, int x, int line_height);
+void	draw_vertical_line(t_data *data, int x, int start, int end, int color);
+void check_x_y(int x, int y);
+void	put_pixel(t_data *data, int x, int y, int color);
+void	init_ray_direction(t_data *data, t_ray *ray, int x);
+void	init_ray_steps(t_data *data, t_ray *ray);
+void	perform_dda(t_data *data, t_ray *ray);
+void	calculate_wall_distance(t_data *data, t_ray *ray);
 #endif

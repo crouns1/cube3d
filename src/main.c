@@ -6,7 +6,7 @@
 /*   By: jait-chd <jait-chd@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 14:59:43 by yabarhda          #+#    #+#             */
-/*   Updated: 2025/12/14 09:03:54 by jait-chd         ###   ########.fr       */
+/*   Updated: 2025/12/14 09:40:02 by jait-chd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,9 @@ int	clean_exit(t_data *data)
 
 int	on_gameupdate(t_data *data)
 {
-	move_player(data);
+	// move_player(data);
+	raycast(data);
+	mlx_put_image_to_window(data->mlx, data->win, data->img, 0, 0);
 	return (0);
 }
 
