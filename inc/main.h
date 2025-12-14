@@ -6,7 +6,7 @@
 /*   By: jait-chd <jait-chd@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 15:00:04 by yabarhda          #+#    #+#             */
-/*   Updated: 2025/12/14 08:35:34 by jait-chd         ###   ########.fr       */
+/*   Updated: 2025/12/14 08:49:38 by jait-chd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,12 @@ typedef struct s_data
 	int				map_width;
 	int				map_height;
 	char			**map_array;
+	// add filds for mlx image
+	void			*img;
+	char			*img_addr;
+	int				bpp;
+	int				size_line;
+	int				endien;
 }					t_data;
 
 int		ft_strcmp(const char *s1, const char *s2);

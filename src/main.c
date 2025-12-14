@@ -6,7 +6,7 @@
 /*   By: jait-chd <jait-chd@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 14:59:43 by yabarhda          #+#    #+#             */
-/*   Updated: 2025/12/14 08:38:14 by jait-chd         ###   ########.fr       */
+/*   Updated: 2025/12/14 08:51:36 by jait-chd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,12 @@ void	init_cub(t_data *data)
 	// then establish mlx and window
 	data->mlx = mlx_init();
 	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "cub3D");
+	// create new image in memory to allow me manipulate pixels before displaying them
+	// double buffering technic , also custom rendring
+	data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	// get the address of the image data to manipulate pixels directly
+	// set pixels colors directly in memory
+	data->img_addr = mlx_get_data_addr(data->img, &data->bpp, &data->size_line, &data->endien);
 	mlx_hook(data->win, 17, 1L << 0, clean_exit, data);
 	mlx_hook(data->win, 2, 1L << 0, on_keypress, data);
 	mlx_hook(data->win, 3, 1L << 1, on_keyrelease, data);
