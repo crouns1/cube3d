@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabarhda <yabarhda@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: jait-chd <jait-chd@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 14:59:43 by yabarhda          #+#    #+#             */
-/*   Updated: 2025/12/14 18:40:18 by yabarhda         ###   ########.fr       */
+/*   Updated: 2025/12/15 10:02:38 by jait-chd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,21 +28,8 @@ int	error_check(int ac, char **av)
 		return (printf("Error\nInvalid file format\n"), 0);
 	return (1);
 }
-
-static void	init_data(t_data *data)
+static void init_textures(t_data *data)
 {
-	data->mlx = NULL;
-	data->map = NULL;
-	data->img = NULL;
-	data->img_addr = NULL;
-	data->size_line = 0;
-	data->bpp = 0;
-	data->endien = 0;
-	data->width = WIDTH;
-	data->height = HEIGHT;
-	data->map_array = NULL;
-	data->map_width = 0;
-	data->map_height = 0;
 	data->texture = ft_malloc(sizeof(t_texture));
 	data->texture->north = NULL;
 	data->texture->south = NULL;
@@ -50,6 +37,8 @@ static void	init_data(t_data *data)
 	data->texture->east = NULL;
 	data->texture->floor = NULL;
 	data->texture->ceiling = NULL;
+}
+static void init_player_info(t_data *data) {
 	data->player.x = 0;
 	data->player.y = 0;
 	data->player.angle = 0;
@@ -64,6 +53,24 @@ static void	init_data(t_data *data)
 	data->player.key_d = false;
 	data->player.key_right = false;
 	data->player.key_left = false;
+}
+static void	init_data(t_data *data)
+{
+	data->mlx = NULL;
+	data->map = NULL;
+	data->img = NULL;
+	data->img_addr = NULL;
+	data->size_line = 0;
+	data->bpp = 0;
+	data->endien = 0;
+	data->width = WIDTH;
+	data->height = HEIGHT;
+	data->map_array = NULL;
+	data->map_width = 0;
+	data->map_height = 0;
+	init_textures(data);
+	init_player_info(data);
+	
 }
 
 int	clean_exit(t_data *data)

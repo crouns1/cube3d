@@ -1,5 +1,5 @@
 NAME = cub3D
-CC = cc
+CC = clang#cc
 CFLAGS = -Wall -Wextra -Werror -g
 MLX = -lmlx -lXext -lX11 -lm
 
