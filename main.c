@@ -1,25 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcmp.c                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabarhda <yabarhda@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: jait-chd <jait-chd@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/08/28 17:16:37 by yabarhda          #+#    #+#             */
-/*   Updated: 2025/08/28 18:33:28 by yabarhda         ###   ########.fr       */
+/*   Created: 2026/01/08 08:56:42 by jait-chd          #+#    #+#             */
+/*   Updated: 2026/01/08 11:26:41 by jait-chd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/main.h"
 
-int	ft_strcmp(const char *s1, const char *s2)
+#include "zero_protocol.h"
+
+int	main(int argc, char **argv)
 {
-	if (!s1 || !s2)
-		return (-1);
-	while (*s1 && *s2 && *s1 == *s2)
-	{
-		s1++;
-		s2++;
-	}
-	return (*s1 - *s2);
+	t_data	data;
+
+	init_data(&data);
+	if (check_error(argc, argv))
+		return (1);
+	parse_bar_file(&data, argv[1]);
+	free_data(&data);
+	return (0);
 }

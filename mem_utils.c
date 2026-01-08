@@ -1,18 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   mem_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabarhda <yabarhda@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: jait-chd <jait-chd@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/21 21:33:02 by yabarhda          #+#    #+#             */
-/*   Updated: 2025/08/31 18:36:08 by yabarhda         ###   ########.fr       */
+/*   Created: 2026/01/08 10:30:00 by jait-chd          #+#    #+#             */
+/*   Updated: 2026/01/08 10:30:00 by jait-chd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../inc/main.h"
+#include "zero_protocol.h"
 
-int	ft_isdigit(int c)
+void	*ft_malloc(int size)
 {
-	return (c >= '0' && c <= '9');
+	return (malloc(size));
+}
+
+void	ft_free(void *ptr)
+{
+	free(ptr);
 }
