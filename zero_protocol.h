@@ -6,7 +6,7 @@
 /*   By: jait-chd <jait-chd@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 08:58:28 by jait-chd          #+#    #+#             */
-/*   Updated: 2026/01/08 11:35:10 by jait-chd         ###   ########.fr       */
+/*   Updated: 2026/01/09 09:05:26 by jait-chd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <unistd.h>
 # include <string.h>
 # include <fcntl.h>
+# include "get_next_line/get_next_line.h"
 
 
 typedef struct s_data
@@ -40,8 +41,7 @@ int		check_error(int c, char **v);
 char	*err(char *str);
 void	init_data(t_data *d);
 void	parse_bar_file(t_data *data, char *file);
-char	*read_file_content(const char *path);
-char	**split_lines(char *content);
+char	**read_lines(const char *path);
 void	free_lines(char **lines);
 char	*skip_spaces(char *s);
 int		parse_header_line(t_data *d, char *line);

@@ -6,24 +6,25 @@
 /*   By: jait-chd <jait-chd@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 09:04:42 by jait-chd          #+#    #+#             */
-/*   Updated: 2026/01/08 11:02:39 by jait-chd         ###   ########.fr       */
+/*   Updated: 2026/01/09 09:05:26 by jait-chd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zero_protocol.h"
 
-size_t ft_strlen(char *str)
+static size_t	ft_strlen_local(char *str)
 {
-    int i =  0;
-    while(str[i])
-        i++;
-    
-    return i;
+	int i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }
 
 char    *err(char *str) {
     write(2, "Error\n", 6);
-    write(2, str, ft_strlen(str));
+    write(2, str, ft_strlen_local(str));
     write(2, "\n", 1);
     return str;
 }

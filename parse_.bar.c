@@ -6,7 +6,7 @@
 /*   By: jait-chd <jait-chd@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 09:30:15 by jait-chd          #+#    #+#             */
-/*   Updated: 2026/01/08 11:26:43 by jait-chd         ###   ########.fr       */
+/*   Updated: 2026/01/09 09:05:26 by jait-chd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,37 +33,27 @@ static int	parse_headers(t_data *d, char **lines, int *idx)
     return (0);
 }
 
-static void	free_content_and_lines(char *content, char **lines)
+static void	parse_exit(t_data *data, char **lines)
 {
-    ft_free(content);
     free_lines(lines);
-}
-
-static void	parse_exit(t_data *data, char *content, char **lines)
-{
-    free_content_and_lines(content, lines);
     free_data(data);
     exit(1);
 }
 
 void	parse_bar_file(t_data *data, char *file)
 {
-    char	*content;
     char	**lines;
     int		idx;
 
-    content = read_file_content(file);
-    if (!content)
-        exit(err("Read failed") && 1);
-    lines = split_lines(content);
+    lines = read_lines(file);
     if (!lines)
-        exit(err("Split failed") && 1);
+        exit(1);
     idx = 0;
     if (parse_headers(data, lines, &idx))
-        parse_exit(data, content, lines);
+        parse_exit(data, lines);
     if (build_map(data, lines, idx))
-        parse_exit(data, content, lines);
+        parse_exit(data, lines);
     if (validate_map(data))
-        parse_exit(data, content, lines);
-    free_content_and_lines(content, lines);
+        parse_exit(data, lines);
+    free_lines(lines);
 }

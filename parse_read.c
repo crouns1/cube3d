@@ -1,100 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_read.c                                      :+:      :+:    :+:   */
+/*   parse_read.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jait-chd <jait-chd@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 09:45:00 by jait-chd          #+#    #+#             */
-/*   Updated: 2026/01/08 09:45:00 by jait-chd         ###   ########.fr       */
+/*   Updated: 2026/01/09 09:05:26 by jait-chd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "zero_protocol.h"
 
-static int	append_chunk(char **content, size_t *len, char *buf, ssize_t r)
+static int	ensure_capacity(char ***lines, int size, int *cap)
 {
-	char	*newc;
-
-	newc = ft_malloc(*len + r + 1);
-	if (!newc)
-		return (1);
-	if (*content)
-		memcpy(newc, *content, *len);
-	memcpy(newc + *len, buf, r);
-	ft_free(*content);
-	*len += r;
-	newc[*len] = '\0';
-	*content = newc;
-	return (0);
-}
-
-static int	read_chunks(int fd, char **content, size_t *len)
-{
-	char	buf[1024];
-	ssize_t	r;
-
-	r = read(fd, buf, 1024);
-	while (r > 0)
-	{
-		if (append_chunk(content, len, buf, r))
-			return (1);
-		r = read(fd, buf, 1024);
-	}
-	return (r < 0);
-}
-
-char	*read_file_content(const char *path)
-{
-	int		fd;
-	char	*content;
-	size_t	len;
-
-	fd = open(path, O_RDONLY);
-	if (fd < 0)
-		return (NULL);
-	content = NULL;
-	len = 0;
-	if (read_chunks(fd, &content, &len))
-		return (close(fd), ft_free(content), NULL);
-	close(fd);
-	return (content);
-}
-
-static char	*substr_dup(char *s, int len)
-{
-	char	*out;
+	char	**new_arr;
 	int		i;
+	int		new_cap;
 
-	out = ft_malloc(len + 1);
-	if (!out)
-		return (NULL);
+	if (size + 1 < *cap)
+		return (0);
+	new_cap = (*cap == 0) ? 16 : *cap * 2;
+	new_arr = ft_malloc(sizeof(char *) * new_cap);
+	if (!new_arr)
+		return (err("Allocation failed"), 1);
 	i = 0;
-	while (i < len)
+	while (i < size)
 	{
-		out[i] = s[i];
+		new_arr[i] = (*lines) ? (*lines)[i] : NULL;
 		i++;
 	}
-	out[len] = '\0';
-	return (out);
-}
-
-static int	count_lines(char *s)
-{
-	int	count;
-	int	i;
-
-	count = 0;
-	i = 0;
-	while (s[i])
-	{
-		if (s[i] == '\n')
-			count++;
-		i++;
-	}
-	if (i > 0 && s[i - 1] != '\n')
-		count++;
-	return (count);
+	ft_free(*lines);
+	*lines = new_arr;
+	*cap = new_cap;
+	return (0);
 }
 
 void	free_lines(char **lines)
@@ -112,54 +51,35 @@ void	free_lines(char **lines)
 	ft_free(lines);
 }
 
-static int	push_line(char **out, int *line_i, char *start, int len)
+char	**read_lines(const char *path)
 {
-	out[*line_i] = substr_dup(start, len);
-	if (!out[*line_i])
-		return (1);
-	(*line_i)++;
-	return (0);
-}
+	int		fd;
+	char		*line;
+	char		**lines;
+	int		size;
+	int		cap;
 
-static int	fill_lines(char **out, char *content)
-{
-	int	i;
-	int	start;
-	int	line_i;
-
-	i = 0;
-	start = 0;
-	line_i = 0;
-	while (content[i])
+	fd = open(path, O_RDONLY);
+	if (fd < 0)
+		return (err("Read failed"), NULL);
+	lines = NULL;
+	size = 0;
+	cap = 0;
+	line = get_next_line(fd);
+	while (line)
 	{
-		if (content[i] == '\n')
-		{
-			if (push_line(out, &line_i, content + start, i - start))
-				return (-1);
-			start = i + 1;
-		}
-		i++;
+		if (ensure_capacity(&lines, size, &cap))
+			return (close(fd), ft_free(line), free_lines(lines), NULL);
+		if (strlen(line) > 0 && line[strlen(line) - 1] == '\n')
+			line[strlen(line) - 1] = '\0';
+		lines[size++] = line;
+		line = get_next_line(fd);
 	}
-	if (i != start && push_line(out, &line_i, content + start, i - start))
-		return (-1);
-	out[line_i] = NULL;
-	return (0);
-}
-
-char	**split_lines(char *content)
-{
-	int		lines_cnt;
-	char	**out;
-
-	if (!content)
-		return (NULL);
-	lines_cnt = count_lines(content);
-	out = ft_malloc(sizeof(char *) * (lines_cnt + 1));
-	if (!out)
-		return (NULL);
-	if (fill_lines(out, content) < 0)
-		return (free_lines(out), NULL);
-	return (out);
+	close(fd);
+	if (ensure_capacity(&lines, size, &cap))
+		return (free_lines(lines), NULL);
+	lines[size] = NULL;
+	return (lines);
 }
 
 char	*skip_spaces(char *s)
