@@ -12,6 +12,11 @@
 
 #include "zero_protocol.h"
 
+static int	color_complete(int out[3])
+{
+	return (out[0] != -1 && out[1] != -1 && out[2] != -1);
+}
+
 int	set_texture(char **dst, char *line)
 {
 	if (*dst)
@@ -88,9 +93,17 @@ int	parse_header_line(t_data *data, char *line)
 	if (!strncmp(line, "EA", 2) && line[2] == ' ')
 		return (set_texture(&data->tex_ea, line + 3));
 	if (*line == 'F' && line[1] == ' ')
+	{
+		if (color_complete(data->floor))
+			return (err("Duplicate floor color"), 1);
 		return (parse_color(data->floor, line + 2));
+	}
 	if (*line == 'C' && line[1] == ' ')
+	{
+		if (color_complete(data->ceiling))
+			return (err("Duplicate ceiling color"), 1);
 		return (parse_color(data->ceiling, line + 2));
+	}
 	if (*line == '\0')
 		return (0);
 	return (err("Unknown identifier"), 1);

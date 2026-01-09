@@ -15,7 +15,9 @@
 static int	headers_complete(t_data *d)
 {
     return (d->tex_no && d->tex_so && d->tex_we && d->tex_ea
-        && d->floor[0] != -1 && d->ceiling[0] != -1);
+        && d->floor[0] != -1 && d->floor[1] != -1 && d->floor[2] != -1
+        && d->ceiling[0] != -1 && d->ceiling[1] != -1
+        && d->ceiling[2] != -1);
 }
 
 static int	parse_headers(t_data *d, char **lines, int *idx)

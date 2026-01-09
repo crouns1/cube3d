@@ -1,12 +1,11 @@
 
-NO ./path_to_the_north_texture
-SO ./path_to_the_south_texture
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
+NO ./Makefile
+SO ./Makefile
+WE ./Makefile
+EA ./Makefile
 F 20,100,0
-F 46,120,12
+C 46,120,12
 
-C 226,30,0
 111111111111111111111111111111111
 10000000001100000000000011111111
 10110000011100000000000011111111

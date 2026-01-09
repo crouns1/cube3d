@@ -20,14 +20,22 @@ static int	ensure_capacity(char ***lines, int size, int *cap)
 
 	if (size + 1 < *cap)
 		return (0);
-	new_cap = (*cap == 0) ? 16 : *cap * 2;
+	
+	if (*cap == 0)
+		new_cap = 16;
+	else
+		new_cap = *cap * 2;
+
 	new_arr = ft_malloc(sizeof(char *) * new_cap);
 	if (!new_arr)
 		return (err("Allocation failed"), 1);
 	i = 0;
 	while (i < size)
 	{
-		new_arr[i] = (*lines) ? (*lines)[i] : NULL;
+		if (*lines)
+			new_arr[i] = (*lines)[i];
+		else
+			new_arr[i] = NULL;
 		i++;
 	}
 	ft_free(*lines);

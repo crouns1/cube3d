@@ -125,14 +125,32 @@ static int	copy_map_line(char *dst, char *src, int maxw)
 	return (0);
 }
 
-static int	calc_map_width(char **lines, int start)
+static int	find_map_end(char **lines, int start)
+{
+	int	end;
+
+	end = start;
+	while (lines[end])
+	{
+		if (!is_map_line(lines[end]))
+		{
+			if (*skip_spaces(lines[end]) == '\0')
+				break;
+			return (-1);
+		}
+		end++;
+	}
+	return (end);
+}
+
+static int	calc_map_width(char **lines, int start, int end)
 {
 	int	maxw;
 	int	y;
 
 	y = start;
 	maxw = 0;
-	while (lines[y])
+	while (y < end)
 	{
 		if ((int)strlen(lines[y]) > maxw)
 			maxw = strlen(lines[y]);
@@ -141,10 +159,11 @@ static int	calc_map_width(char **lines, int start)
 	return (maxw);
 }
 
-static int	alloc_rows(t_data *data, char **lines, int start)
+static int	alloc_rows(t_data *data, char **lines, int start, int end)
 {
 	int	i;
 
+	(void)end;
 	i = 0;
 	while (i < data->map_height)
 	{
@@ -160,17 +179,28 @@ static int	alloc_rows(t_data *data, char **lines, int start)
 
 int	build_map(t_data *data, char **lines, int start)
 {
+	int	end;
 	int	y;
 
-	data->map_width = calc_map_width(lines, start);
-	y = start;
+	end = find_map_end(lines, start);
+	if (end == -1)
+		return (err("Invalid map line"), 1);
+	if (end == start)
+		return (err("Empty map"), 1);
+	y = end;
 	while (lines[y])
+	{
+		if (*skip_spaces(lines[y]) != '\0')
+			return (err("Trailing content after map"), 1);
 		y++;
-	data->map_height = y - start;
+	}
+
+	data->map_width = calc_map_width(lines, start, end);
+	data->map_height = end - start;
 	data->map = ft_malloc(sizeof(char *) * (data->map_height + 1));
 	if (!data->map)
 		return (err("Allocation failed"), 1);
-	if (alloc_rows(data, lines, start))
+	if (alloc_rows(data, lines, start, end))
 		return (1);
 	return (0);
 }
