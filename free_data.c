@@ -12,36 +12,36 @@
 
 #include "zero_protocol.h"
 
-void	free_map(t_data *d)
+void	free_map(t_data *data)
 {
 	int	idx;
 
-	if (!d->map)
+	if (!data->map)
 		return ;
 	idx = 0;
-	while (d->map[idx])
+	while (data->map[idx])
 	{
-		ft_free(d->map[idx]);
+		ft_free(data->map[idx]);
 		idx++;
 	}
-	ft_free(d->map);
-	d->map = NULL;
+	ft_free(data->map);
+	data->map = NULL;
 }
 
-static void	free_textures(t_data *d)
+static void	free_textures(t_data *data)
 {
-	if (d->tex_no)
-		ft_free(d->tex_no);
-	if (d->tex_so)
-		ft_free(d->tex_so);
-	if (d->tex_we)
-		ft_free(d->tex_we);
-	if (d->tex_ea)
-		ft_free(d->tex_ea);
-	d->tex_no = NULL;
-	d->tex_so = NULL;
-	d->tex_we = NULL;
-	d->tex_ea = NULL;
+	if (data->tex_no)
+		ft_free(data->tex_no);
+	if (data->tex_so)
+		ft_free(data->tex_so);
+	if (data->tex_we)
+		ft_free(data->tex_we);
+	if (data->tex_ea)
+		ft_free(data->tex_ea);
+	data->tex_no = NULL;
+	data->tex_so = NULL;
+	data->tex_we = NULL;
+	data->tex_ea = NULL;
 }
 
 void	free_data(t_data *d)

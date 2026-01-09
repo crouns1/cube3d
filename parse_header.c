@@ -6,7 +6,7 @@
 /*   By: jait-chd <jait-chd@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 10:00:00 by jait-chd          #+#    #+#             */
-/*   Updated: 2026/01/08 11:31:11 by jait-chd         ###   ########.fr       */
+/*   Updated: 2026/01/09 17:14:32 by jait-chd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,21 +76,21 @@ int	parse_color(int out[3], char *line)
 	return (0);
 }
 
-int	parse_header_line(t_data *d, char *line)
+int	parse_header_line(t_data *data, char *line)
 {
 	line = skip_spaces(line);
 	if (!strncmp(line, "NO", 2) && line[2] == ' ')
-		return (set_texture(&d->tex_no, line + 3));
+		return (set_texture(&data->tex_no, line + 3));
 	if (!strncmp(line, "SO", 2) && line[2] == ' ')
-		return (set_texture(&d->tex_so, line + 3));
+		return (set_texture(&data->tex_so, line + 3));
 	if (!strncmp(line, "WE", 2) && line[2] == ' ')
-		return (set_texture(&d->tex_we, line + 3));
+		return (set_texture(&data->tex_we, line + 3));
 	if (!strncmp(line, "EA", 2) && line[2] == ' ')
-		return (set_texture(&d->tex_ea, line + 3));
+		return (set_texture(&data->tex_ea, line + 3));
 	if (*line == 'F' && line[1] == ' ')
-		return (parse_color(d->floor, line + 2));
+		return (parse_color(data->floor, line + 2));
 	if (*line == 'C' && line[1] == ' ')
-		return (parse_color(d->ceiling, line + 2));
+		return (parse_color(data->ceiling, line + 2));
 	if (*line == '\0')
 		return (0);
 	return (err("Unknown identifier"), 1);

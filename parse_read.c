@@ -6,7 +6,7 @@
 /*   By: jait-chd <jait-chd@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/08 09:45:00 by jait-chd          #+#    #+#             */
-/*   Updated: 2026/01/09 09:05:26 by jait-chd         ###   ########.fr       */
+/*   Updated: 2026/01/09 17:14:40 by jait-chd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +53,9 @@ void	free_lines(char **lines)
 
 char	**read_lines(const char *path)
 {
-	int		fd;
+	int		(fd)  , (size) , (cap);
 	char		*line;
 	char		**lines;
-	int		size;
-	int		cap;
 
 	fd = open(path, O_RDONLY);
 	if (fd < 0)
