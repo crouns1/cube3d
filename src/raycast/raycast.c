@@ -6,7 +6,7 @@
 /*   By: yabarhda <yabarhda@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/30 16:09:24 by yabarhda          #+#    #+#             */
-/*   Updated: 2026/01/10 02:04:19 by yabarhda         ###   ########.fr       */
+/*   Updated: 2026/01/11 02:23:58 by yabarhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,8 @@ static void	draw_texture(t_data *data, int x)
 void	draw_rays(t_data *data)
 {
 	static bool	textured;
-	float		step;
-	float		offset;
+	double		step;
+	double		offset;
 	int			x;
 
 	if (!textured)

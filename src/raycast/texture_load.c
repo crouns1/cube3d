@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   texture_load.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabarhda <yabarhda@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: jait-chd <jait-chd@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/10 00:00:00 by yabarhda          #+#    #+#             */
-/*   Updated: 2026/01/10 02:04:19 by yabarhda         ###   ########.fr       */
+/*   Updated: 2026/01/11 15:54:36 by jait-chd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static t_img	load_texture(t_data *data, char *path)
 	tex.ptr = mlx_xpm_file_to_image(data->mlx, path, &tex.width, \
 		&tex.height);
 	if (!tex.ptr)
-		(ft_malloc(-42), ft_perror("Invalid texture"), exit(1));
+		(ft_perror("Invalid texture"), clean_exit(data));
 	tex.addr = mlx_get_data_addr(tex.ptr, &tex.bpp, &tex.line_len, \
 		&tex.endien);
 	return (tex);

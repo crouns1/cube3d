@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_cub.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabarhda <yabarhda@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: jait-chd <jait-chd@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 14:31:16 by yabarhda          #+#    #+#             */
-/*   Updated: 2025/12/27 14:32:56 by yabarhda         ###   ########.fr       */
+/*   Updated: 2026/01/11 16:08:40 by jait-chd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,20 @@
 void	init_cub(t_data *data)
 {
 	data->mlx = mlx_init();
+	if (!data->mlx)
+	{
+		ft_malloc(-42);
+		exit(1);
+	}
 	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "cub3D");
+	if (!data->win)
+	{
+		ft_malloc(-42);
+		exit(1);
+	}
 	data->img = mlx_new_image(data->mlx, WIDTH, HEIGHT);
-	data->img_addr = mlx_get_data_addr(data->img, &data->bpp, \
-		&data->size_line, &data->endien);
+	data->img_addr = mlx_get_data_addr(data->img, &data->bpp, &data->size_line,
+			&data->endien);
 	mlx_hook(data->win, 17, 1L << 0, clean_exit, data);
 	mlx_hook(data->win, 2, 1L << 0, on_keypress, data);
 	mlx_hook(data->win, 3, 1L << 1, on_keyrelease, data);

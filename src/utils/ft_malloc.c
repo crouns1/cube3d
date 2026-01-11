@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_malloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabarhda <yabarhda@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: jait-chd <jait-chd@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/05/06 10:14:06 by yabarhda          #+#    #+#             */
-/*   Updated: 2025/09/11 17:01:09 by yabarhda         ###   ########.fr       */
+/*   Updated: 2026/01/10 13:30:35 by jait-chd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	free_all(t_mem *mem)
 static void	ft_malloc_failsafe(t_mem *mem)
 {
 	free_all(mem);
-	write(2, "minishell: malloc somehow failed\n", 33);
+	write(2, "malloc somehow failed\n", 23);
 	exit(1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jait-chd <jait-chd@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 14:59:43 by yabarhda          #+#    #+#             */
-/*   Updated: 2026/01/10 07:26:20 by jait-chd         ###   ########.fr       */
+/*   Updated: 2026/01/11 16:01:35 by jait-chd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,10 @@ static void	init_data(t_data *data)
 
 int	clean_exit(t_data *data)
 {
+	mlx_destroy_image(data->mlx, data->texture->north_tex.ptr);
+	mlx_destroy_image(data->mlx, data->texture->south_tex.ptr);
+	mlx_destroy_image(data->mlx, data->texture->west_tex.ptr);
+	mlx_destroy_image(data->mlx, data->texture->east_tex.ptr);
 	mlx_destroy_image(data->mlx, data->img);
 	mlx_destroy_window(data->mlx, data->win);
 	mlx_destroy_display(data->mlx);

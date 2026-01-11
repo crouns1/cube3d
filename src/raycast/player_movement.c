@@ -6,7 +6,7 @@
 /*   By: yabarhda <yabarhda@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/27 14:22:36 by yabarhda          #+#    #+#             */
-/*   Updated: 2026/01/10 02:07:55 by yabarhda         ###   ########.fr       */
+/*   Updated: 2026/01/11 02:23:58 by yabarhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,10 @@ int	on_keyrelease(int key, t_data *data)
 
 static void	try_step(t_data *data, double angle, int dir)
 {
-	float	new_x;
-	float	new_y;
-	float	cush_x;
-	float	cush_y;
+	double	new_x;
+	double	new_y;
+	double	cush_x;
+	double	cush_y;
 
 	new_x = data->player.x + (dir * MOVE_SPEED * cos(angle));
 	new_y = data->player.y + (dir * MOVE_SPEED * sin(angle));

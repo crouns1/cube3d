@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jait-chd <jait-chd@student.1337.ma>        +#+  +:+       +#+        */
+/*   By: yabarhda <yabarhda@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/08/28 15:00:04 by yabarhda          #+#    #+#             */
-/*   Updated: 2026/01/10 12:07:04 by jait-chd         ###   ########.fr       */
+/*   Updated: 2026/01/11 15:40:38 by jait-chd         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <stdbool.h>
-# include <mlx.h>
+# include "/usr/include/minilibx-linux/mlx.h"
 # include <math.h>
 
 # define WIDTH 1280
@@ -52,13 +52,13 @@ typedef struct s_ray
 	int				step_x;
 	int				step_y;
 	int				side;
-	float			pos_x;
-	float			pos_y;
-	float			delta_x;
-	float			delta_y;
-	float			side_x;
-	float			side_y;
-	float			angle;
+	double			pos_x;
+	double			pos_y;
+	double			delta_x;
+	double			delta_y;
+	double			side_x;
+	double			side_y;
+	double			angle;
 }					t_ray;
 
 typedef struct s_img
@@ -95,9 +95,9 @@ typedef struct s_map
 
 typedef struct s_player
 {
-	float			x;
-	float			y;
-	float			angle;
+	double			x;
+	double			y;
+	double			angle;
 	char			direction;
 	bool			key_w;
 	bool			key_a;
@@ -109,35 +109,35 @@ typedef struct s_player
 
 typedef struct s_draw
 {
-	t_img			*tex;
-	float			distance;
-	float			wall_h;
-	float			start;
-	float			end;
-	float			step;
-	float			tex_pos;
 	int				tex_x;
 	int				y;
+	double			distance;
+	double			wall_h;
+	double			start;
+	double			end;
+	double			step;
+	double			tex_pos;
+	t_img			*tex;
 }					t_draw;
 
 typedef struct s_data
 {
+	int				map_width;
+	int				bpp;
+	int				endien;
+	int				size_line;
+	int				width;
+	int				height;
+	int				map_height;
+	char			*img_addr;
+	char			**map_array;
 	void			*mlx;
 	void			*win;
 	void			*img;
-	char			*img_addr;
-	int				bpp;
-	int				size_line;
-	int				endien;
-	int				width;
-	int				height;
 	t_map			*map;
 	t_texture		*texture;
 	t_player		player;
 	t_ray			ray;
-	char			**map_array;
-	int				map_width;
-	int				map_height;
 }					t_data;
 
 int		ft_strcmp(const char *s1, const char *s2);
@@ -150,7 +150,12 @@ int		on_gameupdate(t_data *data);
 int		on_keypress(int key, t_data *data);
 int		on_keyrelease(int key, t_data *data);
 int		clean_exit(t_data *data);
-int		is_wall(t_data *data, float x, float y);
+int		is_wall(t_data *data, double x, double y);
+int		only_spaces(char *line);
+int		is_space_only(char *s);
+int		valid_color_format(char *s);
+int		get_texture_x(t_data *data, t_img *tex, double distance);
+int		get_texture_color(t_img *tex, int x, int y);
 
 long	ft_atoi(const char *str);
 
@@ -159,6 +164,8 @@ char	*ft_strdup(const char *s);
 char	*get_next_line(int fd);
 char	**ft_split(char const *s, char c);
 char	*ft_strchr(const char *s, int c);
+char	*trim_spaces(char *s);
+char	*join_color_tokens(char **arr);
 
 void	*ft_malloc(long size);
 void	ft_perror(char *s);
@@ -168,20 +175,12 @@ void	validate_map(t_data *data);
 void	parse_file(t_data *data, char *file);
 void	early_exit(char *error);
 void	convert_map_to_array(t_data *data);
-
 void	assign_texture(char **arr, char **texture, int fd);
 void	assign_colors(char **arr, unsigned char **texture, int fd);
-int		is_space_only(char *s);
-char	*trim_spaces(char *s);
-char	*join_color_tokens(char **arr);
-int	only_spaces(char *line);
 void	parse_elements(t_data *data, int fd);
 void	require_elements(t_data *data, int fd);
 void	check_texture_files(t_data *data, int fd);
-
 void	add_node(t_map **map, t_map *new);
-t_map	*new_node(char *row);
-int	valid_color_format(char *s);
 void	get_map_size(t_data *data);
 void	standard_check(t_data *data);
 void	deep_check(t_data *data);
@@ -193,11 +192,12 @@ void	draw_rays(t_data *data);
 void	draw_floor_ceiling(t_data *data);
 void	clear_window(t_data *data);
 void	init_textures(t_data *data);
-t_img	*get_hit_texture(t_data *data);
-int		get_texture_color(t_img *tex, int x, int y);
-int		get_texture_x(t_data *data, t_img *tex, float distance);
-void	set_draw_limits(float wall_h, float *start, float *end);
+void	set_draw_limits(double wall_h, double *start, double *end);
 void	fill_draw_data(t_data *data, t_draw *draw);
+
+t_map	*new_node(char *row);
+
+t_img	*get_hit_texture(t_data *data);
 
 size_t	ft_strlen(const char *s);
 size_t	ft_strlcat(char *dest, const char *src, size_t size);

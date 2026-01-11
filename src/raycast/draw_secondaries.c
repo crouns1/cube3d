@@ -6,13 +6,13 @@
 /*   By: yabarhda <yabarhda@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/12/30 16:28:49 by yabarhda          #+#    #+#             */
-/*   Updated: 2025/12/30 17:01:28 by yabarhda         ###   ########.fr       */
+/*   Updated: 2026/01/11 02:23:58 by yabarhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/main.h"
 
-int	is_wall(t_data *data, float x, float y)
+int	is_wall(t_data *data, double x, double y)
 {
 	int	map_x;
 	int	map_y;

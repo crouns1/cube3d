@@ -6,7 +6,7 @@
 /*   By: yabarhda <yabarhda@student.1337.ma>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/10 00:00:00 by yabarhda          #+#    #+#             */
-/*   Updated: 2026/01/10 02:06:16 by yabarhda         ###   ########.fr       */
+/*   Updated: 2026/01/11 02:29:32 by yabarhda         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ int	get_texture_color(t_img *tex, int x, int y)
 	return (*(unsigned int *)dst);
 }
 
-int	get_texture_x(t_data *data, t_img *tex, float distance)
+int	get_texture_x(t_data *data, t_img *tex, double distance)
 {
-	float	wall_x;
+	double	wall_x;
 	int		tex_x;
 
 	if (data->ray.side == 0)
@@ -44,13 +44,13 @@ int	get_texture_x(t_data *data, t_img *tex, float distance)
 		wall_x = data->ray.pos_x + distance * cos(data->ray.angle);
 	wall_x -= floor(wall_x);
 	tex_x = wall_x * tex->width;
-	if ((data->ray.side == 0 && cos(data->ray.angle) > 0) || \
-		(data->ray.side == 1 && sin(data->ray.angle) < 0))
+	if ((data->ray.side == 0 && data->ray.step_x < 0) || \
+		(data->ray.side == 1 && data->ray.step_y > 0))
 		tex_x = tex->width - tex_x - 1;
 	return (tex_x);
 }
 
-void	set_draw_limits(float wall_h, float *start, float *end)
+void	set_draw_limits(double wall_h, double *start, double *end)
 {
 	*start = -wall_h / 2 + HEIGHT / 2;
 	if (*start < 0)
